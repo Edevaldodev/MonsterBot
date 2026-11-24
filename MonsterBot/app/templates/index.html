@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Monster Bot — Assistente inteligente</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/dompurify@3.2.6/dist/purify.min.js"></script>
+</head>
+<body>
+<div class="app-shell">
+  <aside class="sidebar" id="sidebar">
+    <div class="brand"><div class="brand-mark">✳</div><div><b>MONSTER BOT</b><small>PERSONAL INTELLIGENCE</small></div></div>
+    <button class="new-chat" id="newChat"><span>＋</span> Nova conversa</button>
+    <div class="side-label">RECENTES</div><div id="conversationList" class="conversation-list"></div>
+    <div class="sidebar-bottom">
+      <div class="api-state"><span class="pulse" id="apiPulse"></span><span id="apiStatus">Verificando API…</span></div>
+      <div class="profile"><div class="avatar">I</div><div><b>Monster Bot</b><small>Groq-powered assistant</small></div><button id="themeToggle" title="Alternar tema">◐</button></div>
+    </div>
+  </aside>
+  <main class="main">
+    <header class="topbar"><button class="mobile-menu" id="mobileMenu">☰</button><div class="top-title">Assistente <span class="online-dot"></span></div>
+      <div class="top-actions"><select id="modelSelect" aria-label="Modelo">
+        <option value="openai/gpt-oss-20b">GPT-OSS 20B</option>
+        <option value="openai/gpt-oss-120b">GPT-OSS 120B</option>
+        <option value="llama-3.3-70b-versatile">Llama 3.3 70B</option>
+        <option value="llama-3.1-8b-instant">Llama 3.1 8B Instant</option>
+      </select><button class="icon-button" id="memoryButton" title="Memórias">◇</button><button class="icon-button" id="taskButton" title="Tarefas">☷</button></div>
+    </header>
+    <section class="chat-area" id="chatArea">
+      <div class="welcome" id="welcome">
+        <div class="orb"><div class="orb-core">✳</div><i></i><i></i><i></i></div>
+        <div class="eyebrow">SEU ESPAÇO DE INTELIGÊNCIA</div>
+        <h1>Olá. O que vamos<br><span>criar hoje?</span></h1>
+        <p>Uma ideia, uma dúvida ou um desafio. Vamos trabalhar nisso juntos.</p>
+        <div class="suggestions">
+          <button data-prompt="Explique como funciona a inteligência artificial, com exemplos simples."><span>✧</span><b>Aprender algo</b><small>Explique um conceito passo a passo</small></button>
+          <button data-prompt="Ajude-me a planejar um projeto de programação do zero."><span>⌘</span><b>Criar um projeto</b><small>Transforme uma ideia em um plano</small></button>
+          <button data-prompt="Crie uma função Python e explique cada parte do código."><span>{ }</span><b>Programar</b><small>Escreva e revise código</small></button>
+          <button data-prompt="Organize minhas tarefas de hoje."><span>☷</span><b>Organizar tarefas</b><small>Planeje o que precisa ser feito</small></button>
+        </div>
+      </div>
+      <div id="messages" class="messages"></div>
+    </section>
+    <footer class="composer-wrap">
+      <div class="composer">
+        <textarea id="messageInput" rows="1" placeholder="Envie uma mensagem para a Monster Bot…" maxlength="12000"></textarea>
+        <div class="composer-bottom"><span><kbd>Enter</kbd> enviar · <kbd>Shift + Enter</kbd> nova linha</span><button id="sendButton" class="send-button" aria-label="Enviar">↑</button></div>
+      </div>
+      <div class="disclaimer">A Monster Bot pode cometer erros. Confira informações importantes.</div>
+    </footer>
+  </main>
+</div>
+<div class="modal-backdrop" id="modalBackdrop"><section class="modal"><div class="modal-head"><div><span class="eyebrow">PAINEL</span><h2 id="modalTitle">Memórias salvas</h2></div><button id="closeModal" class="icon-button">×</button></div><div id="modalContent" class="modal-content"></div></section></div>
+<script>window.DEFAULT_MODEL={{ default_model|tojson }};</script>
+<script src="{{ url_for('static', filename='app.js') }}"></script>
+</body></html>
